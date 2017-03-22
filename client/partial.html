@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>partial 有点类似apche ssi 复用</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  </head>
+  <body>
+  <script id="ele1" type="text/x-handlebars-template">
+    {{> commonHeader position='第一' title='个人中心'}}
+  </script>
+  <script id="ele2" type="text/x-handlebars-template">
+    {{> commonHeader position='第二' title='我的'}}
+  </script>
+  <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+  <script>
+      Handlebars.registerPartial(
+          'commonHeader',
+          '<h1 type="{{type}}">{{title}} {{position}}</h1>'
+      )
+
+      var source1=$("#ele1").html();
+      var template=Handlebars.compile(source1);
+      var context1={
+          'type':'pinfo'
+      }
+      var html1=template(context1)
+      $("body").append(html1)
+
+      var source2=$("#ele2").html();
+      var template=Handlebars.compile(source2);
+      var context2={
+          'type':'my'
+      }
+      var html2=template(context2)
+      $("body").append(html2)
+
+  </script>
+  </body>
+</html>
