@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>handlebars在nodejs和客户端同时使用，有些compile是想在客户端执行的，而不是nodejs返回的时候也把进行渲染，所以添加这个helper来防止node
+    js执行了；加上只是为了让nodejs原样返回，然后客户端执行。</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  </head>
+  <body>
+    <ul id="list_wrap">
+
+        <script id="eachlist" type="text/x-handlebars-template">
+          {{{{raw-helper}}}}
+          {{occupation}}
+          {{{{/raw-helper}}}}
+        </script>
+    </ul>
+  <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+  <script>
+        Handlebars.registerHelper('raw-helper',function (options) {
+            return options.fn();
+        })
+        var source=$("#eachlist").html();
+        // Compile the template data into a function
+        var template=Handlebars.compile(source);
+        var data={
+            "occupation" : "developer",
+        }
+        var html=template(data)
+        $("#list_wrap").append(html)
+  </script>
+  </body>
+</html>

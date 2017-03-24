@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>compile</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<ul id="list_wrap">
+  <script id="eachlist" type="text/x-handlebars-template">
+    {{#each list.number}}
+      {{#isEven this}}
+    <p>偶数：{{this}}</p>
+      {{else}}
+    <p>基数：{{this}}</p>
+      {{/isEven}}
+    {{/each}}
+  </script>
+</ul>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+<script>
+    Handlebars.registerHelper('isEven',function (num,options) {
+        //if 只能进行true／false判断，不支持表达式 {{#if num%2=0}}{{/if}}是无效的
+        console.log(num)
+        console.log(this)
+        /*
+        * Number
+        *   __proto__: Number
+        *   [[PrimitiveValue]]: 1
+        *
+        * */
+        if((num%2)==0){
+            return options.fn(this);
+
+        }
+        else {
+            //自定义helper可以使用else
+            return options.inverse(this);
+
+        }
+    })
+    // Retrieve the template data from the HTML (jQuery is used here).
+    var source=$("#eachlist").html();
+    // Compile the template data into a function
+    var template=Handlebars.compile(source);
+    var data={
+        list:{
+            'name':'ivan',
+            'number':[1,2,3,4,5,6,7,8]
+        }
+    }
+    // html = '<li>****</li><li>****</li>'
+    var html=template(data)
+    // Insert the HTML code into the page
+    $("#list_wrap").append(html)
+</script>
+</body>
+</html>
