@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>compile</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  </head>
+  <body>
+    <ul id="list_wrap">
+      <li>1</li>
+      <script id="eachlist" type="text/x-handlebars-template">
+        {{#if names}}
+        有啊
+        {{/if}}
+      </script>
+    </ul>
+  <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+  <script>
+        // Retrieve the template data from the HTML (jQuery is used here).
+        var source=$("#eachlist").html();
+        // Compile the template data into a function
+        var template=Handlebars.compile(source);
+        var data={
+            "occupation" : "developer",
+            "website" : {
+                "name" : "sitepoint"
+            },
+            "names" : ['a']
+        }
+        // html = '<li>****</li><li>****</li>'
+        var html=template(data)
+        // Insert the HTML code into the page
+        $("#list_wrap").append(html)
+  </script>
+  </body>
+</html>
