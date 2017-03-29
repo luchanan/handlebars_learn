@@ -8,18 +8,20 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
   </head>
   <body>
+  <input type="button" id="getmore" value="getmore">
     <ul id="list_wrap">
       <li>1</li>
       <script id="eachlist" type="text/x-handlebars-template">
-        {{#if names}}
-        有啊
-        {{/if}}
+        {{#each names}}
+        <li>{{@root .occupation}}</li>
+
+        {{/each}}
       </script>
     </ul>
   <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
   <script>
-        //undefined, null, "", 0, or [] 返回false
+      $("#getmore").click(function () {
         // Retrieve the template data from the HTML (jQuery is used here).
         var source=$("#eachlist").html();
         // Compile the template data into a function
@@ -29,12 +31,22 @@
             "website" : {
                 "name" : "sitepoint"
             },
-            "names" : ['a']
+            "names" : {
+                "p1": {
+                    "name": "3",
+                    "sex": "man"
+                },
+                "p2": {
+                    "name": "13",
+                    "sex": "man"
+                }
+            }
         }
         // html = '<li>****</li><li>****</li>'
         var html=template(data)
         // Insert the HTML code into the page
         $("#list_wrap").append(html)
+      });
   </script>
   </body>
 </html>
